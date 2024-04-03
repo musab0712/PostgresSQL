@@ -19,4 +19,36 @@ async function insertUser(
   console.log(res);
 }
 
-insertUser("admin1", "12356", "musab", "hassan");
+//insertUser("admin2", "123456", "Er. Musab", "Hassan");
+
+async function getUser(username: string) {
+  const user = await prisma.user.findFirst({
+    where: { username: username },
+  });
+  console.log(user);
+}
+
+getUser("admin1");
+
+interface UpdateParams {
+  firstName: string;
+  lastName: string;
+}
+async function updateUser(
+  username: string,
+  { firstName, lastName }: UpdateParams
+) {
+  const res = await prisma.user.update({
+    where: { username: username },
+    data: {
+      firstName,
+      lastName,
+    },
+  });
+  console.log(res);
+}
+
+updateUser("admin1", {
+  firstName: "new name",
+  lastName: "new lastname",
+});

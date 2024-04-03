@@ -24,4 +24,29 @@ function insertUser(username, password, firstName, lastName) {
         console.log(res);
     });
 }
-insertUser("admin1", "12356", "musab", "hassan");
+//insertUser("admin2", "123456", "Er. Musab", "Hassan");
+function getUser(username) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield prisma.user.findFirst({
+            where: { username: username },
+        });
+        console.log(user);
+    });
+}
+getUser("admin1");
+function updateUser(username_1, _a) {
+    return __awaiter(this, arguments, void 0, function* (username, { firstName, lastName }) {
+        const res = yield prisma.user.update({
+            where: { username: username },
+            data: {
+                firstName,
+                lastName,
+            },
+        });
+        console.log(res);
+    });
+}
+updateUser("admin1", {
+    firstName: "new name",
+    lastName: "new lastname",
+});
